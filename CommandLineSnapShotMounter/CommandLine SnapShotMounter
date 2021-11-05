@@ -1,0 +1,110 @@
+#!/bin/sh
+# Copyright (c) 2021, chris1111. All Right Reserved
+# Permission to use, copy, modify, and/or distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+# Vars
+PARENTDIR=$(dirname "$0")
+cd "$PARENTDIR"
+defaults write com.apple.terminal "Default Window Settings" "Pro"
+defaults write com.apple.terminal "Startup Window Settings" "Pro"
+printf '\e[8;30;80t'
+
+nameh=`users`
+function echob() {
+  echo "`tput bold`$1`tput sgr0`"
+}
+
+function head
+{
+clear
+echo "          ***************************************************************
+                           CommandLine SnapShotMounter"
+}
+echo " "
+
+function menu
+{
+echo " "
+echo "                                   Welcome $nameh "
+echo " "
+echo "                                Type A to Mount Snapshot "
+echo "                                Type B to Install kext files "
+echo "                                Type X to quit  "
+echo "                                                 "
+echo "                                A - MOUNT SNAPSHOT - "
+echo "                                B - INSTALL KEXT - "
+echo "                                X - QUIT PROGRAM - "
+echo "
+          ***************************************************************
+                 © Copyright 2021 chris1111, All Right Reserved.
+          *************************************************************** "
+
+read -n 1 option
+}
+function COMMAND_LINE_MOUNTER
+{
+head
+echo " "
+echo "Command Line SnapShot Mounter"
+./Script-SnapShot/CommandLineSnapShotMounter
+echo " "
+}
+function COMMAND_KEXT
+{
+head
+echo " "
+echo "Command Line Install Kext"
+./Script-SnapShot/CommandLineKext
+echo " "
+echo "`tput setaf 7``tput sgr0``tput bold``tput setaf 26`Succeed kexts installed!`tput sgr0` `tput setaf 7``tput sgr0`"
+echo " "
+}
+function Quit
+{
+clear
+echo " "
+echo "
+Quit Command Line SnapShot Mounter."
+
+osascript -e 'tell app "terminal" to display dialog "Good By" with icon file "System:Library:CoreServices:loginwindow.app:Contents:Resources:ShutDown.tiff" buttons {"Logout"} default button 1 with title "Command Line SnapShot Mounter"'
+echo " "
+echob "Good By $hours `tput setaf 7``tput sgr0``tput bold``tput setaf 10`$nameh`tput sgr0` `tput setaf 7``tput sgr0`"
+echo " "
+exit 0
+}
+while [ 1 ]
+do
+head
+menu
+case $option in
+
+a|A)
+echo
+COMMAND_LINE_MOUNTER ;;
+b|B)
+echo
+COMMAND_KEXT ;;
+x|X)
+echo
+Quit ;;
+
+
+*)
+echo ""
+esac
+echo
+echob "`tput setaf 7``tput sgr0``tput bold``tput setaf 10`Type any key to return.`tput sgr0` `tput setaf 7``tput sgr0`"
+echo
+read -n 1 line
+clear
+done
+
+exit

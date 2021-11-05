@@ -1,0 +1,86 @@
+#!/bin/sh
+# Command Line SnapShot Mounter
+# Copyright (c) 2021, chris1111. All Right Reserved
+# Permission to use, copy, modify, and/or distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+# Vars
+BOLD="\033[1m"
+RED="\033[1;31m"
+GREEN="\033[1;32m"
+BLUE="\033[1;34m"
+OFF="\033[m"
+echo "Verification SIP"
+Sleep 2
+function vertifySIP {
+    echo -n "Verification SIP..."
+    if [[ "$(csrutil status | grep "System Integrity Protection status: disabled." | wc -l)" == "       0" && "$(csrutil status | grep "Filesystem Protections: disabled" | wc -l)" == "       0" ]]; then
+        echo ""
+osascript -e 'tell app "System Events" to display dialog "SIP is enabled on this system. Please disable the SIP from the bootloader or boot to Recovery HD or an install USB drive, open a new terminal window and enter (csrutil disable), and (csrutil authenticated-root disable) without parentheses.
+Once done, reboot into your standard installation of macOS and run this program again." with icon file "System:Library:CoreServices:CoreTypes.bundle:Contents:Resources:FileVaultIcon.icns" buttons {"OK"} default button 1 with title "SnapShot Mounter (Error SIP Enable)"'
+
+osascript -e 'display notification "Program close" sound name "default" with title "'"$apptitle"'" subtitle "SIP Enable"'
+echo "Disable the SIP then restart the program!"
+exit
+        return 1
+    fi
+    return 0
+        
+}
+
+vertifySIP
+
+echo "Verification SIP"
+Sleep 2
+function vertifySIP {
+    echo -n "Verification SIP..."
+    if [[ "$(csrutil authenticated-root status | grep "System Integrity Protection status: disabled." | wc -l)" == "       0" && "$(csrutil authenticated-root status | grep "Authenticated Root status: disabled" | wc -l)" == "       0" ]]; then
+        echo ""
+osascript -e 'tell app "System Events" to display dialog "SIP authenticated-root is enabled on this system. Please disable the SIP from the bootloader or boot to Recovery HD or an install USB drive, open a new terminal window and enter (csrutil disable), and (csrutil authenticated-root disable) without parentheses.
+Once done, reboot into your standard installation of macOS and run this program again." with icon file "System:Library:CoreServices:CoreTypes.bundle:Contents:Resources:FileVaultIcon.icns" buttons {"OK"} default button 1 with title "SnapShot Mounter (Error SIP authenticated-root Enable)"'
+
+osascript -e 'display notification "Program close" sound name "default" with title "'"$apptitle"'" subtitle "SIP Enable"'
+echo "Disable the SIP then restart the program!"
+exit
+        return 1
+    fi
+    return 0
+        
+}
+
+vertifySIP
+
+Sleep 1
+
+echo "———————————————————————————————————————————————————————————————————————"
+
+sudo diskutil list
+
+echo "————————————————————————————————————————————————————————————————————————"
+printf "Enter the Number of the partition follow by [ENTER]. (Exemple) ${GREEN}disk4s5${OFF}"
+
+echo "  "
+
+echo "   ===== The choose Partition Will be Mounted as SnapShot disk! =====
+————————————————————————————————————————————————————————————————————————"
+
+read -p ": " target
+Sleep 1
+sudo mount -o nobrowse -t apfs /dev/$target /System/Volumes/Update/mnt1
+
+
+echo "—————————————————————————————————————————————————————————————————————————"
+echo "`tput setaf 7``tput sgr0``tput bold``tput setaf 26`Mounted SnapShot disk. `tput sgr0` `tput setaf 7``tput sgr0`"
+Sleep 2
+echo "—————————————————————————————————————————————————————————————————————————"
+echo "`tput setaf 7``tput sgr0``tput bold``tput setaf 26`Open SnapShot disk. `tput sgr0` `tput setaf 7``tput sgr0`"
+echo "—————————————————————————————————————————————————————————————————————————"
+echo "`tput setaf 7``tput sgr0``tput bold``tput setaf 26`Successfully Mounted and Open!`tput sgr0` `tput setaf 7``tput sgr0`"
+open /System/Volumes/Update/mnt1/
