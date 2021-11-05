@@ -13,7 +13,7 @@
 
 ### Download V1 ➤ [Command-Line-SnapShot-Mounter](https://github.com/chris1111/Command-Line-SnapShot-Mounter/releases/tag/V1)
 
-![ScreenShot](https://user-images.githubusercontent.com/6248794/140444910-8bd9cdb8-ceef-4a32-ac80-9ee5fb362ee7.png)
+![Screen Shot 2021-11-05 at 9 04 02 AM](https://user-images.githubusercontent.com/6248794/140514986-ca5ddba8-e3aa-46d7-ae2a-c2179536d442.png)
 
 - Video ⬇︎
 
