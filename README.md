@@ -1,6 +1,10 @@
 # Command-Line-SnapShot-Mounter
 
-### Credit: Apple
+### Credit: 
+- chris1111
+- Apple
+
+### This utility uses the macOS terminal
 
 ### Utility to install kexts in / System / Library / Extensions for macOS Monterey 12 and Big Sur 11
 
