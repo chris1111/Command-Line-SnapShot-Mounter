@@ -11,8 +11,6 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 # Vars
-PARENTDIR=$(dirname "$0")
-cd "$PARENTDIR"
 defaults write com.apple.terminal "Default Window Settings" "Pro"
 defaults write com.apple.terminal "Startup Window Settings" "Pro"
 printf '\e[8;30;80t'
