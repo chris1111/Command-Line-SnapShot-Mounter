@@ -9,6 +9,8 @@
 ### Utility to install kexts in / System / Library / Extensions 
 - For macOS Monterey 12 and Big Sur 11
 
+## Note: You cannot mount a Snapshot disk from another disk, this must be done on the live system.
+
 ## Warnings:  :this sofware replaces system files in /S/L/E and could render your system unbootable.
 
 
