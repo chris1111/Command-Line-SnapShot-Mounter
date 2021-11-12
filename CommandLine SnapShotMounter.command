@@ -14,7 +14,6 @@
 defaults write com.apple.terminal "Default Window Settings" "Pro"
 defaults write com.apple.terminal "Startup Window Settings" "Pro"
 printf '\e[8;30;80t'
-
 nameh=`users`
 function echob() {
   echo "`tput bold`$1`tput sgr0`"
@@ -31,15 +30,15 @@ echo " "
 function menu
 {
 echo " "
-echo "                                   Welcome $nameh "
+echo "                                Welcome $nameh "
 echo " "
-echo "                                Type A to Mount Snapshot "
-echo "                                Type B to Install kext files "
-echo "                                Type X to quit  "
+echo "                 Type A to Mount Snapshot "
+echo "                 Type B to Install kext, Frameworks, PrivateFrameworks "
+echo "                 Type X to quit  "
 echo "                                                 "
-echo "                                A - MOUNT SNAPSHOT - "
-echo "                                B - INSTALL KEXT - "
-echo "                                X - QUIT PROGRAM - "
+echo "                 A - MOUNT SNAPSHOT - "
+echo "                 B - INSTALL KEXT, FRAMEWORKS, PRIVATEFRAMEWORKS - "
+echo "                 X - QUIT PROGRAM - "
 echo "
           ***************************************************************
                  © Copyright 2021 chris1111, All Right Reserved.
@@ -101,7 +100,8 @@ vertifySIP
 Sleep 1
 
 echo "———————————————————————————————————————————————————————————————————————"
-
+echo "`tput setaf 7``tput sgr0``tput bold``tput setaf 26`Root access! Type your pasword: `tput sgr0` `tput setaf 7``tput sgr0`"
+echo " "
 sudo diskutil list
 
 echo "————————————————————————————————————————————————————————————————————————"
@@ -131,24 +131,131 @@ function COMMAND_KEXT
 {
 head
 echo " "
-echo "Command Line Install Kext"
+echo "Command Line Install binary"
 # Vars
 SLEDir="/System/Volumes/Update/mnt1/System/Library/Extensions/"
 TempDir="/Private/tmp/Install"
+FDir="/System/Volumes/Update/mnt1/System/Library/Frameworks/"
+FTempDir="/Private/tmp/InstallF"
+PFDir="/System/Volumes/Update/mnt1/System/Library/PrivateFrameworks/"
+PFTempDir="/Private/tmp/InstallPF"
 BUSLEDir="$HOME/Desktop/BackupKext_SLE"
+BUSLFDir="$HOME/Desktop/BackupKext_SLF"
+BUSLPFDir="$HOME/Desktop/BackupKext_SLPF"
 echo " "
 if [ "/Private/tmp/Install" ]; then
     rm -rf "/Private/tmp/Install"
 fi
+
+if [ "/Private/tmp/InstallF" ]; then
+    rm -rf "/Private/tmp/InstallF"
+fi
+
+if [ "/Private/tmp/InstallPF" ]; then
+    rm -rf "/Private/tmp/InstallPF"
+fi
 echo "
 ******************************************************
-Command Line Install Kext ➤ Start
+Command Line Install Binary ➤ Start
 ******************************************************"
+
+read -p "Would you like to install Frameworks? (Y or N)" -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+mkdir -p "${FTempDir}"
+echo  "  "
+echo "`tput setaf 7``tput sgr0``tput bold``tput setaf 10`Please select your Frameworks files`tput sgr0` `tput setaf 7``tput sgr0`"
 # Set Droping directory and file
+osascript <<EOD
+set ThePath to POSIX file "/Private/tmp/InstallF"
+display dialog "Please choose Frameworks files" buttons {"Select"} with icon note default button 1
+set theFiles to choose folder with prompt "Choose files" default location (path to desktop folder) with multiple selections allowed
+tell application "Finder"
+    
+    duplicate theFiles to ThePath with replacing
+end tell
+EOD
+echo "Prepare Installation for:"
+for file in "${FTempDir}"/*;
+do
+echo "${file##*/}"
+done
+Sleep 1
+echo "Verifying Frameworks for /System/Library/Frameworks/:"
+if [ -e "${3}/System/Volumes/Update/mnt1/System/Library/Frameworks/${file##*/}"  ]; then
+echo "Find ${file##*/} ➣ Save Frameworks for (SLF)"
+mkdir -p ~/Desktop/BackupKext_SLF
+for file in "${FTempDir}"/*;
+do
+Sleep 3
+rsync -ab "${FTempDir}"/${file##*/} "$BUSLFDir";
+Sleep 3
+done
+fi
+echo "OK for Frameworks "
+mv ~/Desktop/BackupKext_SLF ~/Desktop/BackupKext_SLF`date "+%Y%m%d_%H%M%S"`
+Sleep 1
+sudo cp -R /Private/tmp/InstallF/*.framework "${FDir}"
+fi
+Sleep 1
+read -p "Would you like to install PrivateFrameworks? (Y or N)" -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+mkdir -p "${PFTempDir}"
+echo  "  "
+echo "`tput setaf 7``tput sgr0``tput bold``tput setaf 10`Please select your PrivateFrameworks files`tput sgr0` `tput setaf 7``tput sgr0`"
+# Set Droping directory and file
+osascript <<EOD
+set ThePath to POSIX file "/Private/tmp/InstallPF"
+display dialog "Please choose PrivateFrameworks files" buttons {"Select"} with icon note default button 1
+set theFiles to choose folder with prompt "Choose files" default location (path to desktop folder) with multiple selections allowed
+tell application "Finder"
+    
+    duplicate theFiles to ThePath with replacing
+end tell
+EOD
+echo "Prepare Installation for:"
+for file in "${PFTempDir}"/*;
+do
+echo "${file##*/}"
+done
+Sleep 1
+echo "Verifying Frameworks for /System/Library/PrivateFrameworks/:"
+if [ -e "${3}/System/Volumes/Update/mnt1/System/Library/PrivateFrameworks/${file##*/}"  ]; then
+echo "Find ${file##*/} ➣ Save PrivateFrameworks for (SLPF)"
+mkdir -p ~/Desktop/BackupKext_SLPF
+for file in "${PFTempDir}"/*;
+do
+Sleep 3
+rsync -ab "${PFTempDir}"/${file##*/} "$BUSLPFDir";
+Sleep 3
+mv ~/Desktop/BackupKext_SLPF ~/Desktop/BackupKext_SLPF`date "+%Y%m%d_%H%M%S"`
+Sleep 1
+sudo cp -R /Private/tmp/InstallPF/*.framework "${PFDir}"
+done
+fi
+echo "OK for PrivateFrameworks "
+fi
+Sleep 1
+read -p "Would you like to install Kext? (Y or N)" -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
 mkdir -p "${TempDir}"
-echo  "`tput setaf 7``tput sgr0``tput bold``tput setaf 10`Please move your kexts to the window \ Followed by Enter`tput sgr0` `tput setaf 7``tput sgr0`  "
-read -p ": " target
-cp -R ${target} "${TempDir}"
+echo  "  "
+echo "`tput setaf 7``tput sgr0``tput bold``tput setaf 10`Please select your kexts files`tput sgr0` `tput setaf 7``tput sgr0`"
+# Set Droping directory and file
+osascript <<EOD
+set ThePath to POSIX file "/Private/tmp/Install"
+display dialog "Please choose kexts files" buttons {"Select"} with icon note default button 1
+set theFiles to choose file with prompt "Choose files" default location (path to desktop folder) with multiple selections allowed
+tell application "Finder"
+    
+    duplicate theFiles to ThePath with replacing
+end tell
+EOD
 echo "Prepare Installation for:"
 for file in "${TempDir}"/*;
 do
@@ -163,22 +270,28 @@ for file in "${TempDir}"/*;
 do
 Sleep 3
 rsync -ab "${TempDir}"/${file##*/} "$BUSLEDir";
-Sleep 1
+Sleep 3
 done
 fi
-sudo cp -r /Private/tmp/Install/* "${SLEDir}"
+echo "OK for Kext"
+mv ~/Desktop/BackupKext_SLE ~/Desktop/BackupKext_SLE`date "+%Y%m%d_%H%M%S"`
 Sleep 1
-echo "Kext Cache repair! Please wait. ."
+sudo cp -R /Private/tmp/Install/* "${SLEDir}"
+fi
+
+Sleep 1
+echo "`tput setaf 7``tput sgr0``tput bold``tput setaf 26`Kext Cache repair! Please wait. .`tput sgr0` `tput setaf 7``tput sgr0`"
 sudo chown -R root:wheel /System/Volumes/Update/mnt1/System/Library/Extensions
 sudo chmod -R 755 /System/Volumes/Update/mnt1/System/Library/Extensions
 sudo kmutil install --volume-root /System/Volumes/Update/mnt1/ --update-all
 sudo bless --folder /System/Volumes/Update/mnt1/System/Library/CoreServices --bootefi --create-snapshot
 Sleep 1
 diskutil unmount /System/Volumes/Update/mnt1
-echo "Done! Reboot your mac"
+echo "`tput setaf 7``tput sgr0``tput bold``tput setaf 10`Done! Reboot your Mac`tput sgr0` `tput setaf 7``tput sgr0`"
 Sleep 1
-mv ~/Desktop/BackupKext_SLE ~/Desktop/BackupKext_SLE`date "+%Y%m%d_%H%M%S"`
 sudo rm -rf /Private/tmp/Install
+sudo rm -rf /Private/tmp/InstallF
+sudo rm -rf /Private/tmp/InstallPF
 echo " "
 echo "`tput setaf 7``tput sgr0``tput bold``tput setaf 26`Succeed kexts installed!`tput sgr0` `tput setaf 7``tput sgr0`"
 echo " "
