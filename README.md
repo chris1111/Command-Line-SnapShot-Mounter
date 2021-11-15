@@ -26,3 +26,10 @@ to install your kexts in / System / Library / Extensions
 - Video ⬇︎
 
 [![Modular Image Creation](https://user-images.githubusercontent.com/6248794/134072536-7c46b8cc-4d8b-42f9-a28a-3c02734f1f5d.png)](https://youtu.be/m8sDY3P278s)
+
+
+### Build the Project with Xcode - ⬇︎ -
+
+- cd Command-Line-SnapShot-Mounter
+- make
+
