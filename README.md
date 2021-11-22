@@ -28,7 +28,7 @@ to install your kexts in / System / Library / Extensions
 [![Modular Image Creation](https://user-images.githubusercontent.com/6248794/134072536-7c46b8cc-4d8b-42f9-a28a-3c02734f1f5d.png)](https://youtu.be/m8sDY3P278s)
 
 
-### Build the Project with Xcode - ⬇︎ -
+### Build the Project with Xcode - ⬇︎ - You need Xcode and the Command Line tools installed.
 
 
 - git clone https://github.com/chris1111/Command-Line-SnapShot-Mounter.git
