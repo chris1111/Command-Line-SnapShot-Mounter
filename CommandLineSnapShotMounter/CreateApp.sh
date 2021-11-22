@@ -1,4 +1,4 @@
-
+#!/bin/sh
 # CommandLineSnapShotMounter
 # (c) Copyright 2021 chris1111 
 # This will create a Apple Bundle
