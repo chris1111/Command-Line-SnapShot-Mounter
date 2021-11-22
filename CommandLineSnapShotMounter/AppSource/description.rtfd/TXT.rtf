@@ -1,0 +1,48 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2636
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;\f2\fnil\fcharset77 ZapfDingbatsITC;
+}
+{\colortbl;\red255\green255\blue255;\red25\green60\blue255;}
+{\*\expandedcolortbl;;\cssrgb\c12594\c35385\c100000;}
+\vieww12180\viewh11540\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \
+\
+
+\f1\b\fs28 Welcome Command Line SnapShot Mounter-V2\
+\
+
+\f0\b0\fs24 Command Line SnapShot Mounter is an utility that allows you\
+to install your kexts in / System / Library / Extensions \
+Kext, bundle and plugin files are allow., a backup of the original files is made.\
+You can also install Frameworks and PrivateFrameworks.\
+\cf2 \ul \ulc2 Only Apple kexts can be accepted to be loaded.
+\f1\b\fs28 \cf0 \ulnone \
+
+\f0\b0\fs24 \
+\
+
+\f1\b - Usage OpenCore
+\f0\b0 \
+csrutil authenticated-root disable (csr-active-config)  
+\f2 \uc0\u10140 
+\f0  EF0F0000\
+SecureBootModel 
+\f2 \uc0\u10148 
+\f0  Disabled\
+\
+
+\f1\b - Usage Clover 
+\f0\b0 \
+csrutil authenticated-root disable (csr-active-config) 
+\f2 \uc0\u10140 
+\f0  0xFEF\
+\
+\
+\
+IMPORTANT NOTE: \
+The csrutil authenticated-root values must be applied before you use this program so if you have not already changed and made a Reset NVRAM do it and reboot then use the program. \
+Also SecureBootModel must be Disabled in config.plist.\
+Gatekeeper must be disable\
+\
+This will create a Snapshot disk then install your Kexts files.}
