@@ -1,16 +1,17 @@
 # Command-Line-SnapShot-Mounter
 
-### Credit: 
-- chris1111
-- Apple
+Note|Description
+:----|:----
+Command-Line-SnapShot-Mounter|This utility uses the macOS terminal
 
-### This utility uses the macOS terminal
+### Credit: chris1111, Apple
+
 
 #### Command Line SnapShot Mounter is an utility that allows you
 to install your kexts in / System / Library / Extensions 
-- Kext, bundle and plugin files are allow., a backup of the original files is made.
-- You can also install Frameworks and PrivateFrameworks.
-- For macOS Monterey 12 and Big Sur 11
+- [x] Kext, bundle and plugin files are allow., a backup of the original files is made.
+- [x] You can also install Frameworks and PrivateFrameworks.
+- [x] For macOS Monterey 12 and Big Sur 11
 
 ## Note: You cannot mount a Snapshot disk from another disk, this must be done on the live system.
 
