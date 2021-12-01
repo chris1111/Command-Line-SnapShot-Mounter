@@ -1,6 +1,6 @@
 # Command-Line-SnapShot-Mounter
 
-Note|Description
+Name|Description
 :----|:----
 Command-Line-SnapShot-Mounter|This utility uses the macOS terminal
 
