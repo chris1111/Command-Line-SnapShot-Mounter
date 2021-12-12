@@ -31,8 +31,16 @@ to install your kexts in / System / Library / Extensions
 
 ### Build the Project with Xcode - ⬇︎ - You need Xcode and the Command Line tools installed.
 
+#### Build
+```bash
+git clone https://github.com/chris1111/Command-Line-SnapShot-Mounter.git
+```
 
-- git clone https://github.com/chris1111/Command-Line-SnapShot-Mounter.git
-- cd $HOME/Command-Line-SnapShot-Mounter/CommandLineSnapShotMounter
-- make
+```bash
+cd $HOME/Command-Line-SnapShot-Mounter/CommandLineSnapShotMounter
+```
+
+```bash
+make
+```
 
