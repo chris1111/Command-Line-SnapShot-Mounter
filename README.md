@@ -34,13 +34,9 @@ to install your kexts in / System / Library / Extensions
 #### Build
 ```bash
 git clone https://github.com/chris1111/Command-Line-SnapShot-Mounter.git
-```
 
-```bash
 cd $HOME/Command-Line-SnapShot-Mounter/CommandLineSnapShotMounter
-```
 
-```bash
 make
 ```
 
