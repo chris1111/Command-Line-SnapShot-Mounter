@@ -2,7 +2,7 @@
 
 Name|Description
 :----|:----
-Command-Line-SnapShot-Mounter|This utility uses the macOS terminal
+Command-Line-SnapShot-Mounter|Utility using the macOS terminal
 
 ### Credit: chris1111, Apple
 
